@@ -7,9 +7,15 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 
-def create_app():
+
+def create_app(config_class=None):
     app = Flask(__name__)
-    app.config.from_object("config.Config")
+
+    if config_class:
+        app.config.from_object(config_class)
+    else:
+        app.config.from_object("config.Config")
+
     db.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
@@ -23,4 +29,3 @@ def create_app():
         })
 
     return app
-    
