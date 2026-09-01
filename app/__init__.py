@@ -20,6 +20,13 @@ def create_app(config_class=None):
     bcrypt.init_app(app)
     jwt.init_app(app)
 
+    from models.user import User
+    from models.job import Job
+    from app.routes.auth import auth_bp
+    from app.routes.jobs import jobs_bp
+    
+    app.register_blueprint(auth_bp)
+
     @app.route("/")
     def home():
         return jsonify({
@@ -28,4 +35,6 @@ def create_app(config_class=None):
             "version": "1.0"
         })
 
+    app.register_blueprint(jobs_bp)
+    
     return app
