@@ -56,9 +56,116 @@ def create_job():
             }
         }), 201
 
+@jobs_bp.route("",methods=["GET"])
+def get_jobs():
+    jobs = Job.query.order_by(Job.created_at.desc()).all()
+
+    return jsonify({
+        "jobs": [
+            {
+                "job_id": job.job_id,
+                "title": job.title,
+                "company": job.company,
+                "location": job.location,
+                "salary": job.salary,
+                "employment_type": job.employment_type
+            }
+            for job in jobs
+            ]
+        }), 200
+
+@jobs_bp.route("/<int:job_id>", methods=["GET"])
+def get_job(job_id):
+    job = db.session.get(Job, job_id)
+
+    if job is None:
+        return jsonify({"error": "Job not found"}), 404
+
+    return jsonify({
+        "job": {
+            "job_id": job.job_id,
+            "title": job.title,
+            "company": job.company,
+            "location": job.location,
+            "description": job.description,
+            "skills_required": job.skills_required,
+            "salary": job.salary,
+            "employment_type": job.employment_type,
+            "recruiter_id": job.recruiter_id
+        }
+    }), 200
 
 
+@jobs_bp.route("/<int:job_id>", methods=["PUT"])
+@jwt_required()
+def update_job(job_id):
+    user_id = int(get_jwt_identity())
 
+    job = db.session.get(Job, job_id)
+
+    if job is None:
+        return jsonify({"error": "Job not found"}), 404
+
+    if job.recruiter_id != user_id:
+        return jsonify({
+            "error": "You can only edit your own jobs"
+        }), 403
+
+    data = request.get_json()
+
+    if "title" in data:
+        job.title = data["title"]
+
+    if "company" in data:
+        job.company = data["company"]
+
+    if "location" in data:
+        job.location = data["location"]
+
+    if "description" in data:
+        job.description = data["description"]
+
+    if "salary" in data:
+        job.salary = data["salary"]
+
+    if "employment_type" in data:
+        job.employment_type = data["employment_type"]
+
+    db.session.commit()
+
+    return jsonify({
+        "message": "Job updated successfully",
+        "job": {
+            "job_id": job.job_id,
+            "title": job.title,
+            "company": job.company,
+            "location": job.location,
+            "salary": job.salary
+        }
+    }), 200
+
+
+@jobs_bp.route("/<int:job_id>", methods=["DELETE"])
+@jwt_required()
+def delete_job(job_id):
+    user_id = int(get_jwt_identity())
+
+    job = db.session.get(Job, job_id)
+
+    if job is None:
+        return jsonify({"error": "Job not found"}), 404
+
+    if job.recruiter_id != user_id:
+        return jsonify({
+            "error": "You can only delete your own jobs"
+        }), 403
+
+    db.session.delete(job)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Job deleted successfully"
+    }), 200
 
 
 
