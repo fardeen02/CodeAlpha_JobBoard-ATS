@@ -22,8 +22,10 @@ def create_app(config_class=None):
 
     from models.user import User
     from models.job import Job
+    from models.application import Application
     from app.routes.auth import auth_bp
     from app.routes.jobs import jobs_bp
+    from app.routes.applications import applications_bp
     
     app.register_blueprint(auth_bp)
 
@@ -36,5 +38,6 @@ def create_app(config_class=None):
         })
 
     app.register_blueprint(jobs_bp)
+    app.register_blueprint(applications_bp)
     
     return app

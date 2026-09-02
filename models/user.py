@@ -13,3 +13,4 @@ class User(db.Model):
     experience = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(UTC))
     jobs = db.relationship("Job", backref="recruiter", lazy=True)
+    applications = db.relationship("Application", backref="applicant", lazy=True)
