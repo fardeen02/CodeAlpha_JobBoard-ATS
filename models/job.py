@@ -14,4 +14,5 @@ class Job(db.Model):
     employment_type = db.Column(db.String(30), default="Full-time")
     recruiter_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(UTC))
+    applications = db.relationship("Application", backref="job", lazy=True)
 
