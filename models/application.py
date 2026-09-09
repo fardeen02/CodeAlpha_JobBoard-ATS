@@ -28,3 +28,7 @@ class Application(db.Model):
         db.DateTime,
         default=lambda: datetime.now(UTC)
     )
+
+    resume_filename = db.Column(db.String(255))
+    resume_skills = db.Column(db.Text)
+    match_score = db.Column(db.Integer, default=0)

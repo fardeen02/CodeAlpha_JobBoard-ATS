@@ -113,9 +113,76 @@ def test_recruiter_with_no_jobs(client):
     assert response.get_json()["jobs"] == []
 
 
+def test_unauthenticated_user_cannot_view_dashboard(client):
+
+    response = client.get(
+        "/api/recruiter/applicants"
+    )
+
+    assert response.status_code == 401
 
 
+def test_recruiter_dashboard_displays_match_score(client):
 
+    recruiter = create_user(client, "recruiter", "rec@test.com")
+    seeker = create_user(client, "jobseeker", "seek@test.com")
+
+    job_id = create_job(client, recruiter)
+
+    client.post(
+        f"/api/jobs/{job_id}/apply",
+        headers={
+            "Authorization": f"Bearer {seeker}"
+        }
+    )
+
+    response = client.get(
+        "/api/recruiter/applicants",
+        headers={
+            "Authorization": f"Bearer {recruiter}"
+        }
+    )
+
+    data = response.get_json()
+
+    applicant = data["jobs"][0]["applicants"][0]
+
+    assert applicant["match_score"] == 0
+
+
+def test_recruiter_only_sees_own_jobs(client):
+
+    recruiter1 = create_user(
+        client,
+        "recruiter",
+        "rec1@test.com"
+    )
+
+    recruiter2 = create_user(
+        client,
+        "recruiter",
+        "rec2@test.com"
+    )
+
+    job1 = create_job(client, recruiter1)
+    job2 = create_job(client, recruiter2)
+
+    response1 = client.get(
+        "/api/recruiter/applicants",
+        headers={
+            "Authorization": f"Bearer {recruiter1}"
+        }
+    )
+
+    data1 = response1.get_json()
+
+    job_ids = [
+        job["job_id"]
+        for job in data1["jobs"]
+    ]
+
+    assert job1 in job_ids
+    assert job2 not in job_ids
 
 
 

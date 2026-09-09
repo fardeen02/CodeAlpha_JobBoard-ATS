@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 
+
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 jwt = JWTManager()
@@ -27,19 +28,12 @@ def create_app(config_class=None):
     from app.routes.jobs import jobs_bp
     from app.routes.applications import applications_bp
     from app.routes.recruiter import recruiter_bp
+    from app.routes.main import main_bp
     
     app.register_blueprint(auth_bp)
-
-    @app.route("/")
-    def home():
-        return jsonify({
-            "project": "Job Board & Mini ATS API",
-            "status": "Running",
-            "version": "1.0"
-        })
-
     app.register_blueprint(jobs_bp)
     app.register_blueprint(applications_bp)
     app.register_blueprint(recruiter_bp)
-    
+    app.register_blueprint(main_bp)
+
     return app

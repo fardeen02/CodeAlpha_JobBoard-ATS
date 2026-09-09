@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NovaHire ATS{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="bg-blur blur-one"></div>
+    <div class="bg-blur blur-two"></div>
+
+    <nav class="navbar navbar-expand-lg fixed-top glass-nav">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold brand-logo" href="/">
+                NovaHire ATS
+            </a>
+
+            <button class="navbar-toggler border-0 shadow-none" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/jobs">Jobs</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.about_page') }}">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.features_page') }}">Features</a>
+                    </li>
+                </ul>
+
+                <div id="authButtons" class="d-flex gap-2 align-items-center">
+                    <a href="/login" class="btn btn-outline-light btn-sm px-3">Login</a>
+                    <a href="/register" class="btn btn-primary btn-sm px-3">Register</a>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+     
+	 <footer class="site-footer">
+    <div class="container text-center">
+        <p>© 2026 NovaHire ATS. Built for smarter recruitment - By Md Fardeen Alam</p>
+    </div>
+     </footer>
+	 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

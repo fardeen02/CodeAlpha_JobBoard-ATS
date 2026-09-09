@@ -67,6 +67,8 @@ def get_jobs():
                 "title": job.title,
                 "company": job.company,
                 "location": job.location,
+                "description": job.description,
+                "skills_required": job.skills_required,
                 "salary": job.salary,
                 "employment_type": job.employment_type
             }
@@ -124,6 +126,9 @@ def update_job(job_id):
 
     if "description" in data:
         job.description = data["description"]
+
+    if "skills_required" in data:
+        job.skills_required = data["skills_required"]
 
     if "salary" in data:
         job.salary = data["salary"]

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Jobs - NovaHire ATS{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+
+<div class="container">
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+<div>
+<h1>Explore Jobs</h1>
+<p class="text-secondary mb-0">Find opportunities that match your skills.</p>
+</div>
+
+<input
+type="text"
+id="searchInput"
+class="form-control"
+placeholder="Search jobs..."
+style="max-width:18rem;"
+>
+
+</div>
+
+<div class="row g-4" id="jobsContainer"></div>
+
+</div>
+
+</section>
+
+{% endblock %}

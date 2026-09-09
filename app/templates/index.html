@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}NovaHire ATS{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <span class="hero-badge">
+                    Smart Recruitment Platform
+                </span>
+
+                <h1 class="hero-title">
+                    Find Your Dream Job.
+                    <span class="gradient-text">Hire Smarter.</span>
+                </h1>
+
+                <p class="hero-text">
+                    Modern recruitment platform with ATS Resume Matching,
+                    secure authentication and recruiter analytics.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+
+                    <a href="/jobs" class="btn btn-primary btn-lg px-4">
+                        Browse Jobs
+                    </a>
+
+                    <a href="/register" class="btn btn-outline-light btn-lg px-4">
+                        Get Started
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="hero-card">
+
+                    <div class="score-circle">
+                        92%
+                    </div>
+
+                    <h4 class="mt-4">ATS Match Score</h4>
+
+                    <p class="text-secondary">
+                        Resume matched with Python, Flask, SQL and Git.
+                    </p>
+
+                    <div class="skills">
+
+                        <span>Python</span>
+                        <span>Flask</span>
+                        <span>SQL</span>
+                        <span>Git</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="stats">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <h2 class="counter" data-target="500">0</h2>
+                    <p>Jobs</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <h2 class="counter" data-target="120">0</h2>
+                    <p>Recruiters</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <h2 class="counter" data-target="980">0</h2>
+                    <p>Applicants</p>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <div class="stat-card">
+                    <h2 class="counter" data-target="95">0</h2>
+                    <p>Accuracy %</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="featured-jobs">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Featured Opportunities</h2>
+            <p>Latest opportunities available on NovaHire ATS.</p>
+        </div>
+
+        <div id="featuredJobs" class="row g-4">
+
+            <div class="col-12 text-center">
+                <p class="text-secondary">Loading jobs...</p>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="/jobs" class="btn btn-primary px-4">
+                View All Jobs
+            </a>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
